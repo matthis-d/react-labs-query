@@ -3,6 +3,7 @@ import classnames from "classnames";
 
 import LikeButton from "./LikeButton";
 import LikeButtonContainer from "./LikeButtonContainer";
+import { Link } from "react-router-dom";
 
 class RuleDescription extends React.Component {
   render() {
@@ -61,9 +62,13 @@ function Rule({ rule }) {
           ))}
 
           <div className="btn-group btn-group-xs pull-right">
-            <a className="btn btn-primary" title="Update">
+            <Link
+              className="btn btn-primary"
+              title="Update"
+              to={`/edit/${rule.id}`}
+            >
               <i className="glyphicon glyphicon-pencil"></i>
-            </a>
+            </Link>
           </div>
           <div className="btn-group btn-group-xs pull-right">
             <LikeButton ruleId={rule.id} direction="up" count={rule.likes} />
