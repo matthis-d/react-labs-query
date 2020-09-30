@@ -1,6 +1,29 @@
+import Axios from "axios";
 import React from "react";
+import { useQuery } from "react-query";
 
-export default function RuleForm() {
+function useRule(ruleId) {
+  const { data: rule, ...rest } = useQuery(
+    ["rule", ruleId],
+    async () => {
+      const { data } = await Axios.get(
+        `https://m7p0j.sse.codesandbox.io/rest/rules/${ruleId}`,
+      );
+      return data;
+    },
+    {
+      enabled: ruleId,
+    },
+  );
+
+  return { rule, ...rest };
+}
+
+export default function RuleForm({ match }) {
+  const { rule } = useRule(match.params.id);
+
+  console.log(rule);
+
   return (
     <div className="panel panel-primary">
       <div className="panel-heading">
