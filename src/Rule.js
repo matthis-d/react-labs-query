@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import classnames from "classnames";
 
 import LikeButton from "./LikeButton";
-import LikeButtonContainer from "./LikeButtonContainer";
 import { Link } from "react-router-dom";
 
 class RuleDescription extends React.Component {
@@ -84,4 +83,13 @@ function Rule({ rule }) {
   );
 }
 
-export default Rule;
+function areEqual(prevProps, nextProps) {
+  const hasLikesChanged = prevProps.rule.likes !== nextProps.rule.likes;
+  const hasDislikesChanged =
+    prevProps.rule.dislikes !== nextProps.rule.dislikes;
+
+  return !(hasLikesChanged || hasDislikesChanged);
+}
+
+// Second argument is a function that returns true if component should not be rerendered
+export default React.memo(Rule, areEqual);

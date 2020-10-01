@@ -14,22 +14,6 @@ function useLike(ruleId, direction) {
       );
     },
     {
-      onMutate: () => {
-        cache.cancelQueries("rules");
-
-        const previousValue = cache.getQueryData("rules");
-
-        cache.setQueryData("rules", (prevRules) =>
-          prevRules.map((r) => {
-            if (r.id === ruleId) {
-              return { ...r, [property]: r[property] + 1 };
-            }
-            return r;
-          }),
-        );
-
-        return previousValue;
-      },
       onSettled: () => {
         cache.invalidateQueries("rules");
       },
